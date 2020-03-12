@@ -4,4 +4,21 @@ services:
     build: .
     volumes:
       - .:/app
-    working_dir: /app
+    ports: 
+      - 4000:4000
+    working_dir: /app/hello
+    command: mix phx.server
+  db:
+    image: mysql:8.0.19
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    # NOTE: default-authentication-plugin=mysql_native_password => sequelizeが caching_sha2_password に対応していないため
+    command: > 
+      mysqld 
+      --character-set-server=utf8mb4 
+      --collation-server=utf8mb4_unicode_ci 
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+    - ./docker_volumes/db/data:/var/lib/mysql
+    ports:
+    - 3306:3306

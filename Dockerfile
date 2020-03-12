@@ -5,6 +5,7 @@ RUN apk update && \
     # imageの初期にcacheが入っている場合があるため念の為cacheを削除しておく
     rm -rf /var/cache/apk/* && \
     apk add --no-cache \
+    inotify-tools \
     nodejs \
     nodejs-npm
 
